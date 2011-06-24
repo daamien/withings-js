@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Withings.api unit tests</title>
+
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?key=ABQIAAAA-RZvjmAxDstxboqCHf9XtxT2yXp_ZAY8_ufC3CFXhHIE1NvwkxRCQ3AmVMGv9aKqzkOYRLT2I6nu5g"></script>
+    <script type="text/javascript">
+        google.load("jquery", "1.6.1");
+    </script>
+
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+    <script type="text/javascript" src="scripts/withings.api.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            test("default", function() {
+                var n = withings.init.name;
+                console.log(withings.init.name);
+            });
+
+            module("Public API");
+
+            test("init:", function() {
+                var wi = withings;
+                ok(wi.hasOwnProperty("init"));
+                wi.init("uid", "key");
+            });
+
+            test("initialized", function() {
+                var wi = withings;
+                equals(wi.hasOwnProperty("init"),true,"Has init() method");
+                equals(wi.hasOwnProperty("initialized"),true,"Has initialized() method");
+                wi.init("", "");
+                equals(wi.initialized(), false, "Returns false when userid and publickey are empty");
+                wi.init("uid", "");
+                equals(wi.initialized(), false, "Returns false when userid is set and publickey is empty");
+                wi.init("", "key");
+                equals(wi.initialized(), false, "Returns false when userid is empty and publickey is set");
+                wi.init("uid","key");
+                equals(wi.initialized(), true, "Returns true when both userid and publickey are set");
+            });
+
+            test("getUser", function() {
+                ok(true);
+            });
+
+            module("Integration Test");
+        });
+    </script>
+
+</head>
+<body>
+<h1 id="qunit-header">QUnit example</h1>
+
+<h2 id="qunit-banner"></h2>
+
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">test markup, will be hidden</div>
+</body>
+</html>
